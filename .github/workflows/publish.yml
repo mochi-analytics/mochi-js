@@ -36,11 +36,13 @@ jobs:
       - name: Select package
         id: package
         shell: bash
+        env:
+          RELEASE_TAG_NAME: ${{ github.event.release.tag_name }}
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             component="${{ inputs.npm_package }}"
           else
-            component="${{ github.event.release.tag_name%%-v* }}"
+            component="${RELEASE_TAG_NAME%%-v*}"
           fi
 
           case "$component" in
