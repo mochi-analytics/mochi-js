@@ -1,6 +1,6 @@
 {
   "name": "@mochi-analytics/core",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Core client for Mochi — self-hosted analytics for Discord bots",
   "license": "Apache-2.0",
   "repository": {
@@ -19,7 +19,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=18"
   },
@@ -34,5 +36,10 @@
     "typescript": "^5.8.0",
     "vitest": "^3.2.0"
   },
-  "keywords": ["discord", "bot", "analytics", "mochi"]
+  "keywords": [
+    "discord",
+    "bot",
+    "analytics",
+    "mochi"
+  ]
 }
