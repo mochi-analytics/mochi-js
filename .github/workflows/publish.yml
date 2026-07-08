@@ -1,0 +1,59 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      npm_package:
+        description: "npm package to publish"
+        required: true
+        type: choice
+        options:
+          - core
+          - discordjs
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  npm:
+    name: Publish npm package
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.release.tag_name, 'core-v') || startsWith(github.event.release.tag_name, 'discordjs-v') || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - name: Verify trusted publishing toolchain
+        run: npm --version
+      - name: Select package
+        id: package
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            component="${{ inputs.npm_package }}"
+          else
+            component="${{ github.event.release.tag_name%%-v* }}"
+          fi
+
+          case "$component" in
+            core)
+              echo "filter=@mochi-analytics/core" >> "$GITHUB_OUTPUT"
+              ;;
+            discordjs)
+              echo "filter=@mochi-analytics/discordjs" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "Unsupported npm package component: $component" >&2
+              exit 1
+              ;;
+          esac
+      - run: pnpm --filter "${{ steps.package.outputs.filter }}..." build
+      - run: pnpm --filter "${{ steps.package.outputs.filter }}" publish --access public --no-git-checks --provenance

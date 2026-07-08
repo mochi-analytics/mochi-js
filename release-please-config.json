@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "packages": {
+    "packages/core": {
+      "component": "core",
+      "package-name": "@mochi-analytics/core",
+      "release-type": "node"
+    },
+    "packages/discordjs": {
+      "component": "discordjs",
+      "package-name": "@mochi-analytics/discordjs",
+      "release-type": "node"
+    }
+  }
+}
