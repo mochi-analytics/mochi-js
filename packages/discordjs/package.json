@@ -1,6 +1,6 @@
 {
   "name": "@mochi-analytics/discordjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "discord.js adapter for Mochi — auto-instruments commands, guild joins/leaves, and health snapshots",
   "license": "Apache-2.0",
   "repository": {
@@ -30,7 +30,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@mochi-analytics/core": "workspace:*"
+    "@mochi-analytics/core": "^1.0.0"
   },
   "peerDependencies": {
     "discord.js": "^14.0.0"
