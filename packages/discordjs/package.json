@@ -1,6 +1,6 @@
 {
   "name": "@mochi-analytics/discordjs",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "discord.js adapter for Mochi — auto-instruments commands, guild joins/leaves, and health snapshots",
   "license": "Apache-2.0",
   "repository": {
@@ -19,7 +19,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=18"
   },
@@ -39,5 +41,11 @@
     "tsup": "^8.5.0",
     "typescript": "^5.8.0"
   },
-  "keywords": ["discord", "discord.js", "bot", "analytics", "mochi"]
+  "keywords": [
+    "discord",
+    "discord.js",
+    "bot",
+    "analytics",
+    "mochi"
+  ]
 }
