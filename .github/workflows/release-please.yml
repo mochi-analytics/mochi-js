@@ -6,13 +6,60 @@ on:
 
 permissions:
   contents: write
+  id-token: write
   pull-requests: write
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      paths_released: ${{ steps.release.outputs.paths_released }}
     steps:
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  publish-core:
+    name: Publish @mochi-analytics/core
+    runs-on: ubuntu-latest
+    needs: release-please
+    if: contains(fromJSON(needs.release-please.outputs.paths_released), 'packages/core')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - name: Verify trusted publishing toolchain
+        run: npm --version
+      - run: pnpm --filter "@mochi-analytics/core..." build
+      - run: pnpm --filter "@mochi-analytics/core" publish --access public --no-git-checks --provenance
+
+  publish-discordjs:
+    name: Publish @mochi-analytics/discordjs
+    runs-on: ubuntu-latest
+    needs:
+      - release-please
+      - publish-core
+    if: |
+      always() &&
+      contains(fromJSON(needs.release-please.outputs.paths_released), 'packages/discordjs') &&
+      (needs.publish-core.result == 'success' || needs.publish-core.result == 'skipped')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - name: Verify trusted publishing toolchain
+        run: npm --version
+      - run: pnpm --filter "@mochi-analytics/discordjs..." build
+      - run: pnpm --filter "@mochi-analytics/discordjs" publish --access public --no-git-checks --provenance
