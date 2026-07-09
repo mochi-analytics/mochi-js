@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "Core client for Mochi — self-hosted analytics for Discord bots",
   "license": "Apache-2.0",
+  "author": "Mochi Analytics <contact@bwmp.dev>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mochi-analytics/mochi-js.git",
     "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/mochi-analytics/mochi-js/issues"
   },
   "type": "module",
   "main": "./dist/index.cjs",

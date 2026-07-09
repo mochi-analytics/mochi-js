@@ -132,4 +132,48 @@ describe("MochiClient", () => {
     expect(calls[0].body.guildCount).toBe(42);
     await client.shutdown();
   });
+
+  it("honors Retry-After on a 429 over the computed backoff", async () => {
+    const times: number[] = [];
+    const impl = (async () => {
+      times.push(Date.now());
+      const status = times.length === 1 ? 429 : 202;
+      return new Response("{}", {
+        status,
+        headers: status === 429 ? { "Retry-After": "1" } : {},
+      });
+    }) as typeof fetch;
+    const { client, errors } = makeClient(impl);
+
+    const start = Date.now();
+    client.track({ type: "command", name: "play" });
+    await client.flush();
+
+    expect(times).toHaveLength(2);
+    expect(errors).toHaveLength(0);
+    // Retry-After: 1s must dominate the 500ms computed backoff.
+    expect(Date.now() - start).toBeGreaterThanOrEqual(900);
+    await client.shutdown();
+  });
+
+  it("never throws when the onError handler itself throws", async () => {
+    const { impl } = mockFetch(() => ({ status: 202 }));
+    const client = new MochiClient({
+      url: "http://localhost:9999/",
+      apiKey: "mochi_sk_test",
+      flushIntervalMs: 60_000,
+      maxQueueSize: 1,
+      onError: () => {
+        throw new Error("handler blew up");
+      },
+      fetch: impl,
+    });
+
+    // Overflow reports from inside track(); a throwing handler must not escape.
+    expect(() => {
+      client.track({ type: "custom", name: "a" });
+      client.track({ type: "custom", name: "b" });
+    }).not.toThrow();
+    await client.shutdown();
+  });
 });

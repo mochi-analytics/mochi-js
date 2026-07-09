@@ -3,10 +3,14 @@
   "version": "1.1.0",
   "description": "discord.js adapter for Mochi — auto-instruments commands, guild joins/leaves, and health snapshots",
   "license": "Apache-2.0",
+  "author": "Mochi Analytics <contact@bwmp.dev>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mochi-analytics/mochi-js.git",
     "directory": "packages/discordjs"
+  },
+  "bugs": {
+    "url": "https://github.com/mochi-analytics/mochi-js/issues"
   },
   "type": "module",
   "main": "./dist/index.cjs",

@@ -102,7 +102,7 @@ export class MochiClient {
     this.queue.push(event);
     if (this.queue.length > this.maxQueueSize) {
       this.queue.splice(0, this.queue.length - this.maxQueueSize);
-      this.onError(new Error("mochi: event queue overflow, dropped oldest"));
+      this.report(new Error("mochi: event queue overflow, dropped oldest"));
     }
     if (this.queue.length >= this.maxBatchSize) {
       void this.flush();
@@ -121,7 +121,7 @@ export class MochiClient {
     try {
       await this.send(this.snapshotUrl, snapshot);
     } catch (error) {
-      this.onError(error instanceof Error ? error : new Error(String(error)));
+      this.report(error);
     }
   }
 
@@ -150,9 +150,7 @@ export class MochiClient {
       try {
         await this.send(this.ingestUrl, { events: batch });
       } catch (error) {
-        this.onError(
-          error instanceof Error ? error : new Error(String(error)),
-        );
+        this.report(error);
         return; // Batch is dropped; don't spin on a failing endpoint.
       }
     }
@@ -160,9 +158,13 @@ export class MochiClient {
 
   private async send(url: string, body: unknown): Promise<void> {
     let lastError: Error | null = null;
+    let retryAfterMs: number | null = null;
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       if (attempt > 0) {
-        await sleep(500 * 2 ** (attempt - 1));
+        // Honor a server-provided Retry-After (from a prior 429) in preference
+        // to the computed backoff; otherwise use exponential backoff.
+        await sleep(retryAfterMs ?? 500 * 2 ** (attempt - 1));
+        retryAfterMs = null;
       }
       let response: Response;
       try {
@@ -183,12 +185,36 @@ export class MochiClient {
         const text = await response.text().catch(() => "");
         throw new Error(`mochi: request rejected (${response.status}) ${text}`);
       }
+      if (response.status === 429) {
+        retryAfterMs = parseRetryAfter(response.headers.get("retry-after"));
+      }
       lastError = new Error(`mochi: server returned ${response.status}`);
     }
     throw lastError ?? new Error("mochi: request failed");
+  }
+
+  /** Routes an error to onError, guarding it: a handler must never crash the bot. */
+  private report(error: unknown): void {
+    try {
+      this.onError(error instanceof Error ? error : new Error(String(error)));
+    } catch {
+      // An error handler must never take down the host bot.
+    }
   }
 }
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** Parses a Retry-After header (delta-seconds or HTTP-date) into milliseconds. */
+function parseRetryAfter(value: string | null): number | null {
+  if (!value) return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const seconds = Number(trimmed);
+  if (Number.isFinite(seconds)) return seconds >= 0 ? seconds * 1000 : null;
+  const dateMs = Date.parse(trimmed);
+  if (!Number.isNaN(dateMs)) return Math.max(dateMs - Date.now(), 0);
+  return null;
 }
