@@ -1,6 +1,6 @@
 {
   "name": "@mochi-analytics/core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Core client for Mochi — self-hosted analytics for Discord bots",
   "license": "Apache-2.0",
   "author": "Mochi Analytics <contact@bwmp.dev>",
