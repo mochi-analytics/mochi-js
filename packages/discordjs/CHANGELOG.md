@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/mochi-analytics/mochi-js/compare/discordjs-v1.1.2...discordjs-v1.1.3) (2026-07-09)
+
+
+### Bug Fixes
+
+* publish? ([a348b0c](https://github.com/mochi-analytics/mochi-js/commit/a348b0cb07c1f3f6dd11b3ec1e156aeae566d586))
+
 ## [1.1.2](https://github.com/mochi-analytics/mochi-js/compare/discordjs-v1.1.1...discordjs-v1.1.2) (2026-07-09)
 
 
