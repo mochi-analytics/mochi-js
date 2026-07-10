@@ -11,6 +11,21 @@
       "component": "discordjs",
       "package-name": "@mochi-analytics/discordjs",
       "release-type": "node"
+    },
+    "packages/eris": {
+      "component": "eris",
+      "package-name": "@mochi-analytics/eris",
+      "release-type": "node"
+    },
+    "packages/oceanic": {
+      "component": "oceanic",
+      "package-name": "@mochi-analytics/oceanic",
+      "release-type": "node"
+    },
+    "packages/sapphire": {
+      "component": "sapphire",
+      "package-name": "@mochi-analytics/sapphire",
+      "release-type": "node"
     }
   }
 }

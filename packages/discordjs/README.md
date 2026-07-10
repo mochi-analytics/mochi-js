@@ -22,7 +22,7 @@ const mochi = new MochiClient({
 const detachMochi = attachMochi(client, mochi);
 ```
 
-See the repository docs for the full discord.js guide.
+See the [discord.js guide](https://docs.mochis.dev/sdks/discordjs) for the full documentation.
 
 ## License
 

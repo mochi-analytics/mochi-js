@@ -10,8 +10,13 @@ JavaScript and TypeScript SDK packages for [Mochi](https://github.com/mochi-anal
 
 - `@mochi-analytics/core` - generic batching HTTP client for Mochi ingest and snapshot APIs
 - `@mochi-analytics/discordjs` - discord.js v14 adapter for command, guild, and health instrumentation
+- `@mochi-analytics/eris` - Eris adapter
+- `@mochi-analytics/oceanic` - Oceanic.js adapter
+- `@mochi-analytics/sapphire` - Sapphire framework adapter, with `success` and `duration` recorded for free
 
-Future JavaScript Discord libraries should be added under `packages/` and depend on `@mochi-analytics/core`.
+Every adapter exposes the same `attachMochi(client, mochi, options)` returning a
+`detach` function. Future JavaScript Discord libraries should be added under
+`packages/` and depend on `@mochi-analytics/core`.
 
 ## Install
 
@@ -31,7 +36,13 @@ const mochi = new MochiClient({
 attachMochi(client, mochi);
 ```
 
-See [docs/sdk-discordjs.md](./docs/sdk-discordjs.md) for the full discord.js guide.
+Full guides live at [docs.mochis.dev/sdks](https://docs.mochis.dev/sdks), one per
+library — [discord.js](https://docs.mochis.dev/sdks/discordjs),
+[Eris](https://docs.mochis.dev/sdks/eris),
+[Oceanic.js](https://docs.mochis.dev/sdks/oceanic), and
+[Sapphire](https://docs.mochis.dev/sdks/sapphire). They are maintained in the
+[mochi-docs](https://github.com/mochi-analytics/mochi-docs) repo, which is the
+single source of truth for documentation.
 
 ## Development
 

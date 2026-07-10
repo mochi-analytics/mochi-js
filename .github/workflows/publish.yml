@@ -12,6 +12,9 @@ on:
         options:
           - core
           - discordjs
+          - eris
+          - oceanic
+          - sapphire
 
 permissions:
   contents: read
@@ -21,7 +24,7 @@ jobs:
   npm:
     name: Publish npm package
     runs-on: ubuntu-latest
-    if: startsWith(github.event.release.tag_name, 'core-v') || startsWith(github.event.release.tag_name, 'discordjs-v') || github.event_name == 'workflow_dispatch'
+    if: startsWith(github.event.release.tag_name, 'core-v') || startsWith(github.event.release.tag_name, 'discordjs-v') || startsWith(github.event.release.tag_name, 'eris-v') || startsWith(github.event.release.tag_name, 'oceanic-v') || startsWith(github.event.release.tag_name, 'sapphire-v') || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -46,11 +49,8 @@ jobs:
           fi
 
           case "$component" in
-            core)
-              echo "filter=@mochi-analytics/core" >> "$GITHUB_OUTPUT"
-              ;;
-            discordjs)
-              echo "filter=@mochi-analytics/discordjs" >> "$GITHUB_OUTPUT"
+            core|discordjs|eris|oceanic|sapphire)
+              echo "filter=@mochi-analytics/$component" >> "$GITHUB_OUTPUT"
               ;;
             *)
               echo "Unsupported npm package component: $component" >&2
