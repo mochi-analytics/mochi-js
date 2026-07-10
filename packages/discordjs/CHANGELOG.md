@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/mochi-analytics/mochi-js/compare/discordjs-v1.1.3...discordjs-v1.2.0) (2026-07-10)
+
+
+### Features
+
+* add eris, oceanic, sapphire ([6d0df65](https://github.com/mochi-analytics/mochi-js/commit/6d0df65671d25d0d205acb0a7dab7cfb4f82e046))
+
 ## [1.1.3](https://github.com/mochi-analytics/mochi-js/compare/discordjs-v1.1.2...discordjs-v1.1.3) (2026-07-09)
 
 

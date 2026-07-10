@@ -1,6 +1,6 @@
 {
   "name": "@mochi-analytics/eris",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Eris adapter for Mochi — auto-instruments commands, guild joins/leaves, and health snapshots",
   "license": "Apache-2.0",
   "author": "Mochi Analytics <contact@bwmp.dev>",

@@ -1,6 +1,6 @@
 {
   "name": "@mochi-analytics/sapphire",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Sapphire framework adapter for Mochi — auto-instruments commands with success and duration, guild joins/leaves, and health snapshots",
   "license": "Apache-2.0",
   "author": "Mochi Analytics <contact@bwmp.dev>",
