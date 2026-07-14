@@ -64,6 +64,11 @@ Publishing uses npm trusted publishing with GitHub Actions OIDC. Configure each 
 - Workflow filename: `publish.yml`
 - Allowed action: `npm publish`
 
+## Community
+
+Questions or want to share what you built? Join the
+[Mochi Discord](https://discord.gg/59z89Ke4bt).
+
 ## License
 
 Apache-2.0

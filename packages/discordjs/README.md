@@ -24,6 +24,10 @@ const detachMochi = attachMochi(client, mochi);
 
 See the [discord.js guide](https://mochi.software/sdks/discordjs) for the full documentation.
 
+## Community
+
+Questions? Join the [Mochi Discord](https://discord.gg/59z89Ke4bt).
+
 ## License
 
 Apache-2.0

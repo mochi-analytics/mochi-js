@@ -31,6 +31,10 @@ Guild events and health snapshots come from `@mochi-analytics/discordjs`, which
 
 See the [Sapphire guide](https://mochi.software/sdks/sapphire) for the full documentation.
 
+## Community
+
+Questions? Join the [Mochi Discord](https://discord.gg/59z89Ke4bt).
+
 ## License
 
 Apache-2.0
