@@ -25,7 +25,7 @@ const detachMochi = attachMochi(client, mochi);
 Oceanic runs every shard inside one process, so one snapshot is sent per shard,
 each carrying that shard's own guild count.
 
-See the [Oceanic.js guide](https://docs.mochis.dev/sdks/oceanic) for the full documentation.
+See the [Oceanic.js guide](https://mochi.software/sdks/oceanic) for the full documentation.
 
 ## License
 

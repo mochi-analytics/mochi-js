@@ -29,7 +29,7 @@ Sapphire reports the outcome and wall time of every command through its
 Guild events and health snapshots come from `@mochi-analytics/discordjs`, which
 `SapphireClient` extends.
 
-See the [Sapphire guide](https://docs.mochis.dev/sdks/sapphire) for the full documentation.
+See the [Sapphire guide](https://mochi.software/sdks/sapphire) for the full documentation.
 
 ## License
 

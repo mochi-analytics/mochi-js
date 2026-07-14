@@ -25,7 +25,7 @@ const detachMochi = attachMochi(client, mochi);
 Eris runs every shard inside one process, so one snapshot is sent per shard,
 each carrying that shard's own guild count.
 
-See the [Eris guide](https://docs.mochis.dev/sdks/eris) for the full documentation.
+See the [Eris guide](https://mochi.software/sdks/eris) for the full documentation.
 
 ## License
 

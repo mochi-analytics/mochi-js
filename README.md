@@ -36,11 +36,11 @@ const mochi = new MochiClient({
 attachMochi(client, mochi);
 ```
 
-Full guides live at [docs.mochis.dev/sdks](https://docs.mochis.dev/sdks), one per
-library — [discord.js](https://docs.mochis.dev/sdks/discordjs),
-[Eris](https://docs.mochis.dev/sdks/eris),
-[Oceanic.js](https://docs.mochis.dev/sdks/oceanic), and
-[Sapphire](https://docs.mochis.dev/sdks/sapphire). They are maintained in the
+Full guides live at [mochi.software/sdks](https://mochi.software/sdks), one per
+library — [discord.js](https://mochi.software/sdks/discordjs),
+[Eris](https://mochi.software/sdks/eris),
+[Oceanic.js](https://mochi.software/sdks/oceanic), and
+[Sapphire](https://mochi.software/sdks/sapphire). They are maintained in the
 [mochi-docs](https://github.com/mochi-analytics/mochi-docs) repo, which is the
 single source of truth for documentation.
 
