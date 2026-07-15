@@ -1,3 +1,5 @@
+import { cpus } from "node:os";
+
 export type MochiEventType =
   | "command"
   | "guild_join"
@@ -35,6 +37,17 @@ export interface MochiSnapshot {
   totalShards?: number;
   approximateMemberSum?: number;
   wsPingMs?: number;
+  /**
+   * Process CPU usage, normalized to 0-100 across all cores. Filled in
+   * automatically from `process.cpuUsage()` when omitted; pass a value to
+   * override (or 0 to suppress the auto-measurement).
+   */
+  cpuPercent?: number;
+  /**
+   * Process resident set size in megabytes. Filled in automatically from
+   * `process.memoryUsage().rss` when omitted.
+   */
+  memoryMb?: number;
   ts?: string;
 }
 
@@ -77,6 +90,10 @@ export class MochiClient {
   private timer: ReturnType<typeof setInterval> | null = null;
   private flushing: Promise<void> | null = null;
   private shutdownRequested = false;
+  // Baseline for the CPU delta. CPU is a rate, so a single reading is
+  // meaningless; the first snapshot only records memory and seeds these.
+  private lastCpu: NodeJS.CpuUsage | null = null;
+  private lastCpuAt = 0n;
 
   constructor(options: MochiClientOptions) {
     const base = options.url.replace(/\/+$/, "");
@@ -118,11 +135,45 @@ export class MochiClient {
 
   /** Sends a guild-count/health snapshot immediately (with retries). */
   async snapshot(snapshot: MochiSnapshot): Promise<void> {
+    // Auto-measure process resources, letting caller-provided values win.
+    const payload: MochiSnapshot = { ...this.collectResources(), ...snapshot };
     try {
-      await this.send(this.snapshotUrl, snapshot);
+      await this.send(this.snapshotUrl, payload);
     } catch (error) {
       this.report(error);
     }
+  }
+
+  /**
+   * Samples process CPU (normalized to 0-100 across all cores, relative to the
+   * previous snapshot) and resident memory. Best-effort: any failure, or a
+   * non-Node runtime, yields an empty result rather than throwing.
+   */
+  private collectResources(): { cpuPercent?: number; memoryMb?: number } {
+    const out: { cpuPercent?: number; memoryMb?: number } = {};
+    if (typeof process === "undefined") return out;
+    try {
+      out.memoryMb = Math.round(process.memoryUsage().rss / 1_048_576);
+    } catch {
+      // memoryUsage unavailable — skip memory.
+    }
+    try {
+      const nowNs = process.hrtime.bigint();
+      const usage = process.cpuUsage();
+      if (this.lastCpu && nowNs > this.lastCpuAt) {
+        const cpuMicros =
+          usage.user - this.lastCpu.user + (usage.system - this.lastCpu.system);
+        const wallMicros = Number(nowNs - this.lastCpuAt) / 1000;
+        const cores = Math.max(1, cpus().length);
+        const pct = (cpuMicros / wallMicros / cores) * 100;
+        out.cpuPercent = Math.max(0, Math.round(pct * 10) / 10);
+      }
+      this.lastCpu = usage;
+      this.lastCpuAt = nowNs;
+    } catch {
+      // cpuUsage/hrtime unavailable — skip CPU.
+    }
+    return out;
   }
 
   /** Drains the queue. Safe to call concurrently; flushes are serialized. */

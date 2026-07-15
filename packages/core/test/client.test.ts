@@ -133,6 +133,28 @@ describe("MochiClient", () => {
     await client.shutdown();
   });
 
+  it("auto-attaches process memory to snapshots", async () => {
+    const { calls, impl } = mockFetch(() => ({ status: 202 }));
+    const { client } = makeClient(impl);
+
+    await client.snapshot({ guildCount: 1 });
+
+    expect(typeof calls[0].body.memoryMb).toBe("number");
+    expect(calls[0].body.memoryMb).toBeGreaterThan(0);
+    await client.shutdown();
+  });
+
+  it("lets a caller-supplied resource value win over the measurement", async () => {
+    const { calls, impl } = mockFetch(() => ({ status: 202 }));
+    const { client } = makeClient(impl);
+
+    await client.snapshot({ guildCount: 1, memoryMb: 7, cpuPercent: 0 });
+
+    expect(calls[0].body.memoryMb).toBe(7);
+    expect(calls[0].body.cpuPercent).toBe(0);
+    await client.shutdown();
+  });
+
   it("honors Retry-After on a 429 over the computed backoff", async () => {
     const times: number[] = [];
     const impl = (async () => {
