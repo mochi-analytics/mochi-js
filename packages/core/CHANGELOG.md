@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/mochi-analytics/mochi-js/compare/core-v1.0.3...core-v1.1.0) (2026-07-15)
+
+
+### Features
+
+* add community section with Discord invite link to all package READMEs ([3112939](https://github.com/mochi-analytics/mochi-js/commit/3112939725c4e56a1a577413d17512766a2ccad0))
+* add CPU and memory metrics to MochiClient snapshots ([6d5a634](https://github.com/mochi-analytics/mochi-js/commit/6d5a634bf9286e41f91cde084d88033cc4754d4e))
+
 ## [1.0.3](https://github.com/mochi-analytics/mochi-js/compare/core-v1.0.2...core-v1.0.3) (2026-07-09)
 
 
