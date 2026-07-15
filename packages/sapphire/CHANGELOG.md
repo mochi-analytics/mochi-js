@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/mochi-analytics/mochi-js/compare/sapphire-v0.2.0...sapphire-v0.3.0) (2026-07-15)
+
+
+### Features
+
+* add community section with Discord invite link to all package READMEs ([3112939](https://github.com/mochi-analytics/mochi-js/commit/3112939725c4e56a1a577413d17512766a2ccad0))
+
+
+### Bug Fixes
+
+* update documentation links to new domain ([f12e5be](https://github.com/mochi-analytics/mochi-js/commit/f12e5bee1b94f09cc1eac34d70037f82d7dfd518))
+
 ## [0.2.0](https://github.com/mochi-analytics/mochi-js/compare/sapphire-v0.1.0...sapphire-v0.2.0) (2026-07-10)
 
 
