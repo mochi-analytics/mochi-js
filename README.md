@@ -67,7 +67,7 @@ Publishing uses npm trusted publishing with GitHub Actions OIDC. Configure each 
 ## Community
 
 Questions or want to share what you built? Join the
-[Mochi Discord](https://discord.gg/59z89Ke4bt).
+[Mochi Discord](https://mochi.software/discord).
 
 ## License
 

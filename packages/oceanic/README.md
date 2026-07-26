@@ -29,7 +29,7 @@ See the [Oceanic.js guide](https://mochi.software/sdks/oceanic) for the full doc
 
 ## Community
 
-Questions? Join the [Mochi Discord](https://discord.gg/59z89Ke4bt).
+Questions? Join the [Mochi Discord](https://mochi.software/discord).
 
 ## License
 

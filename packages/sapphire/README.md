@@ -33,7 +33,7 @@ See the [Sapphire guide](https://mochi.software/sdks/sapphire) for the full docu
 
 ## Community
 
-Questions? Join the [Mochi Discord](https://discord.gg/59z89Ke4bt).
+Questions? Join the [Mochi Discord](https://mochi.software/discord).
 
 ## License
 

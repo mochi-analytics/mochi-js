@@ -29,7 +29,7 @@ See the [Eris guide](https://mochi.software/sdks/eris) for the full documentatio
 
 ## Community
 
-Questions? Join the [Mochi Discord](https://discord.gg/59z89Ke4bt).
+Questions? Join the [Mochi Discord](https://mochi.software/discord).
 
 ## License
 

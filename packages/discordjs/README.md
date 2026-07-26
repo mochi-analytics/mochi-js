@@ -26,7 +26,7 @@ See the [discord.js guide](https://mochi.software/sdks/discordjs) for the full d
 
 ## Community
 
-Questions? Join the [Mochi Discord](https://discord.gg/59z89Ke4bt).
+Questions? Join the [Mochi Discord](https://mochi.software/discord).
 
 ## License
 
