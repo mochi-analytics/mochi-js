@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/mochi-analytics/mochi-js/compare/eris-v0.2.0...eris-v0.3.0) (2026-07-26)
+
+
+### Features
+
+* add community section with Discord invite link to all package READMEs ([3112939](https://github.com/mochi-analytics/mochi-js/commit/3112939725c4e56a1a577413d17512766a2ccad0))
+
+
+### Bug Fixes
+
+* update Discord invite link in community section across all package READMEs ([8987dc0](https://github.com/mochi-analytics/mochi-js/commit/8987dc04d2d8f5a0d25463bedb702eb35f07a4c0))
+* update documentation links to new domain ([f12e5be](https://github.com/mochi-analytics/mochi-js/commit/f12e5bee1b94f09cc1eac34d70037f82d7dfd518))
+
 ## [0.2.0](https://github.com/mochi-analytics/mochi-js/compare/eris-v0.1.0...eris-v0.2.0) (2026-07-10)
 
 
